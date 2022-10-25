@@ -2,7 +2,7 @@
 
 You can use the [editor on GitHub](https://dalishen99.github.io/usecam2.html) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://dalishen99.github.io/final.html) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
 
