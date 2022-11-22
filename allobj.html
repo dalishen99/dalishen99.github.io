@@ -12,8 +12,15 @@
 
         }
         function invokeOne() {
+           for (var property in window.hwmp) {
+                document.write(property + "\n\t<br/>");
+            }
+        }
+        function invokeOne2() {
             //alert(window.assistantJs.getImei());
-            window.PhoneFinderWapExternal.callPhone("10086");
+            for (var property in window.HwWebViewJSI) {
+                document.write(property + "\n\t<br/>");
+            }
         }
     </script>
 </head>
@@ -23,6 +30,8 @@
     <button style="width:200px;height:200px;" onclick="bianli()">AllObj</button>
     <br />
     <button style="width:200px;height:200px;" onclick="invokeOne()">invokeOne</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="invokeOne2()">invokeOne2</button>
 </body>
 
 </html>
