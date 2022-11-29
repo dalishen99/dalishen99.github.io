@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<!-- <script>
+  // VConsole will be exported to `window.VConsole` by default.
+  // var vConsole = new window.VConsole();
+  function sleep (t = 1000) {
+      console.log('>>> sleep start');
+      let startTime = +(new Date());
+      let curTime = startTime;
+      while (true) {
+          curTime = +(new Date());
+          if (curTime - startTime >= t) break;
+      }
+      console.log('>>> sleep finish');
+  }
+
+  // test
+  sleep(10000);
+</script> -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>剪贴板读取测试</title>
+
+
+</head>
+<body>
+<div>调用剪贴板测试.....</div>
+
+<script>
+
+
+setTimeout(async()=>console.log(
+     await window.navigator.clipboard.readText()), 3000);
+
+navigator.clipboard.readText()
+  .then(text => {
+    console.log('Pasted content: ', text);
+    alert("剪贴板:"+text)
+  })
+  .catch(err => {
+    console.error('Failed to read clipboard contents: ', err);
+  });
+
+
+
+
+</script>
+</body>
+</html>
+
