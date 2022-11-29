@@ -1,58 +1,32 @@
 
 <!DOCTYPE html>
-<!-- <script>
-  // VConsole will be exported to `window.VConsole` by default.
-  // var vConsole = new window.VConsole();
-  function sleep (t = 1000) {
-      console.log('>>> sleep start');
-      let startTime = +(new Date());
-      let curTime = startTime;
-      while (true) {
-          curTime = +(new Date());
-          if (curTime - startTime >= t) break;
-      }
-      console.log('>>> sleep finish');
-  }
-
-  // test
-  sleep(10000);
-</script> -->
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>剪贴板读取测试</title>
-
+<script src="dist/clipboard.min.js"></script>
 
 </head>
 <body>
 <div>调用剪贴板测试.....</div>
-
+//data-clipboard-text  这部分对应的是你要复制的内容
+<td data-clipboard-text="要复制的内容"  id="copy1" onclick="copy1()">要复制的内容</td>
 <script>
 
-if (navigator != null && window.location.toString().toUpperCase().indexOf("HTTPS") > -1) {
-  navigator.permissions.query({ name: "clipboard-write" }).then(result => {
-    if (result.state === "granted" || result.state == "prompt") {
-      navigator.clipboard.writeText(Cache.ClipboardData)
-        .then(() => {
-        console.log('文本已经成功复制到剪切板');
-		alert(1);
-		alert(navigator.clipboard.readText());
-      })
-        .catch(err => {
-         
-        console.error('无法复制此文本：', err);
-      });
+//JS
+ function copy1(key)
+    {
+        var clipboard = new ClipboardJS("#copy1");
+        clipboard.on('success', function (e) {
+          console.info('Action:', e.action);
+          console.info('Text:', e.text);
+          console.info('Trigger:', e.trigger);
+          alert("复制成功！");
+          clipboard.destroy();
+        });
     }
-    else {
-      console.log("当前无操作权限。请使用最新版本Chrome浏览器，并在浏览器高级设置-页面设置中允许访问剪切板");
-    }
-  });
-}
-
-
-
 
 
 </script>
