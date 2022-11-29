@@ -10,23 +10,23 @@
 
 </head>
 <body>
-<div>调用剪贴板测试.....</div>
-//data-clipboard-text  这部分对应的是你要复制的内容
-<td data-clipboard-text="要复制的内容"  id="copy1" onclick="copy1()">要复制的内容</td>
+ //在复制按钮上添加点击事件
+//data-clipboard-target  这个部分是插件特有的，里面是要复制内容部分的标签id
+<div  id="copy1"  data-clipboard-target="#copyBT" onclick="copyArticle1()">复制</div>
+ <td id="copyBT">要复制的内容</td>
+ 
 <script>
 
-//JS
- function copy1(key)
-    {
-        var clipboard = new ClipboardJS("#copy1");
+ //js部分
+  var clipboard = new ClipboardJS('#copy1');
         clipboard.on('success', function (e) {
+        //以下部分都可以打印出来
           console.info('Action:', e.action);
           console.info('Text:', e.text);
           console.info('Trigger:', e.trigger);
           alert("复制成功！");
           clipboard.destroy();
         });
-    }
 
 
 </script>
