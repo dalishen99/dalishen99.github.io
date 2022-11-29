@@ -18,6 +18,8 @@
 <script>
 
  //js部分
+ function copy1(key)
+    {
   var clipboard = new ClipboardJS('#copy1');
         clipboard.on('success', function (e) {
         //以下部分都可以打印出来
@@ -26,7 +28,7 @@
           console.info('Trigger:', e.trigger);
           alert("复制成功！");
           clipboard.destroy();
-        });
+        });}
 
 
 </script>
