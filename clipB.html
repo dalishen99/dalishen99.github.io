@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="?env=test">切换投递到Slardar web测试环境？</a>
+    <br>
+    <button class="clipboardClickRead">绑定click的clipboardClickRead</button>
+    <br>
+    <button class="clipboardTouchRead">绑定touch的clipboardTouchRead</button>
+    <br>
+    <button class="f1">绑定click的execCommand</button>
+    <br>
+    <button class="f2">绑定touch的execCommand</button>
+    <br>
+
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <!-- <script src="../../index.js"></script> -->
+    <script>
+        const env = window.location.href.match(/env=([^&]*)/)?.[1];
+        const e = document.createElement('script');
+        if (env === 'test') {
+            e.src = '../../dist/index.test.js';
+        } else {
+            e.src = '../..//dist/index.min.js';
+        }
+        document.getElementsByTagName('head')[0].appendChild(e);
+    </script>
+    <script>
+        var clipboardClickReadBtn = document.getElementsByClassName('clipboardClickRead')[0]
+        var clipboardTouchkReadBtn = document.getElementsByClassName('clipboardTouchRead')[0]
+        var btnF1 = document.getElementsByClassName('f1')[0]
+        var btnF2 = document.getElementsByClassName('f2')[0]
+        const vConsole = new window.VConsole()
+
+
+        setTimeout(async () => {
+            let res = await navigator.clipboard.readText()
+            console.log('不在handler中的粘贴结果', res)
+        }, 2000)
+
+
+        clipboardClickReadBtn.addEventListener('click', async () => {
+            let r = await navigator.clipboard.readText();
+            console.log('clickClipboard结果为', r)
+        })
+
+
+        clipboardTouchkReadBtn.addEventListener('touchstart', async function () {
+            let r = await navigator.clipboard.readText();
+            console.log('TouchClipboard结果为', r)
+        })
+
+        function getClipboardValue() {
+            const input = document.createElement('input');
+            document.body.appendChild(input);
+            input.focus();
+            document.execCommand('paste');
+            const v = input.value;
+            input.blur();
+            document.body.removeChild(input);
+            return v;
+        }
+
+        btnF1.addEventListener('click', () => {
+            let temp = getClipboardValue()
+            console.log('clickEXEC结果为', temp)
+        })
+
+        btnF2.addEventListener('touchstart', () => {
+            let temp = getClipboardValue()
+            console.log('touchEXEC结果为', temp)
+        })
+
+        let res = getClipboardValue()
+        console.log('直接触发ExecCommand结果为', res)
+
+    </script>
+</body>
+
+</html>
