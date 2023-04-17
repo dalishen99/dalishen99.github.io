@@ -5,7 +5,7 @@
     <title>GetLocation</title>
   </head>
   <body>
-    <p id="demo">获取当前坐标</p>
+    <p id="demo">Get location</p>
     <button onclick="getlocation()">click the button to get location</button>
     <script>
       var x=document.getElementById("demo");
@@ -22,7 +22,7 @@
       }
       function showPosition(position)
       {
-        x.innerHTML="纬度："+position.coords.latitude+"<br>经度:"+position.coords.longitude;
+        x.innerHTML="longitude："+position.coords.latitude+"<br>longitude:"+position.coords.longitude;
       }
       function showError(error)
       {
