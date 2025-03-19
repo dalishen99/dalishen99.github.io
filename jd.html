@@ -27,6 +27,12 @@
             var data = JSON.stringify(e);
             alert(data);
         }
+
+         window.callBackGetJDPinToken = function (a,b) {
+               alert(a);
+             alert(b);
+        }
+        
         function callOne() {
            //JDAppUnite.getPhoneBasicInfo("window.callBackMyMessage");
            //JDAppUnite.requestLogin("window.callBackMyMessage");
