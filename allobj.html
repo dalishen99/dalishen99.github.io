@@ -2,8 +2,260 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>AllOBJ</title>
+
+    <script>
+        function hookPro() {
+            var excludedPropsArray = [
+                "Object", "Function", "Array", "Number", "parseFloat", "parseInt", "Infinity", "NaN", "undefined", "Boolean", "String", "Symbol", "Date", "Promise",
+                "RegExp", "Error", "AggregateError", "EvalError", "RangeError", "ReferenceError", "SyntaxError", "TypeError", "URIError", "globalThis", "JSON", "Math",
+                "Intl", "ArrayBuffer", "Atomics", "Uint8Array", "Int8Array", "Uint16Array", "Int16Array", "Uint32Array", "Int32Array", "Float32Array", "Float64Array",
+                "Uint8ClampedArray", "BigUint64Array", "BigInt64Array", "DataView", "Map", "BigInt", "Set", "WeakMap", "WeakSet", "Proxy", "Reflect",
+                "FinalizationRegistry", "WeakRef", "decodeURI", "decodeURIComponent", "encodeURI", "encodeURIComponent", "escape", "unescape", "eval",
+                "isFinite", "isNaN", "console", "Option", "Image", "Audio", "webkitURL", "webkitRTCPeerConnection", "webkitMediaStream", "WebKitMutationObserver",
+                "WebKitCSSMatrix", "XSLTProcessor", "XPathResult", "XPathExpression", "XPathEvaluator", "XMLSerializer", "XMLHttpRequestUpload",
+                "XMLHttpRequestEventTarget", "XMLHttpRequest", "XMLDocument", "WritableStreamDefaultWriter", "WritableStreamDefaultController",
+                "WritableStream", "Worker", "Window", "WheelEvent", "WebSocket", "WebGLVertexArrayObject", "WebGLUniformLocation", "WebGLTransformFeedback",
+                "WebGLTexture", "WebGLSync", "WebGLShaderPrecisionFormat", "WebGLShader", "WebGLSampler", "WebGLRenderingContext", "WebGLRenderbuffer",
+                "WebGLQuery", "WebGLProgram", "WebGLFramebuffer", "WebGLContextEvent", "WebGLBuffer", "WebGLActiveInfo", "WebGL2RenderingContext",
+                "WaveShaperNode", "VisualViewport", "VirtualKeyboardGeometryChangeEvent", "ViewTransition", "VideoFrame", "VideoColorSpace", "ValidityState",
+                "VTTCue", "UserActivation", "URLSearchParams", "URLPattern", "URL", "UIEvent", "TrustedTypePolicyFactory", "TrustedTypePolicy",
+                "TrustedScriptURL", "TrustedScript", "TrustedHTML", "TreeWalker", "TransitionEvent", "TransformStreamDefaultController", "TransformStream",
+                "TrackEvent", "TouchList", "TouchEvent", "Touch", "ToggleEvent", "TimeRanges", "TextTrackList", "TextTrackCueList", "TextTrackCue",
+                "TextTrack", "TextMetrics", "TextEvent", "TextEncoderStream", "TextEncoder", "TextDecoderStream", "TextDecoder", "Text", "TaskSignal",
+                "TaskPriorityChangeEvent", "TaskController", "TaskAttributionTiming", "SyncManager", "SubmitEvent", "StyleSheetList", "StyleSheet",
+                "StylePropertyMapReadOnly", "StylePropertyMap", "StorageEvent", "Storage", "StereoPannerNode", "StaticRange", "SourceBufferList",
+                "SourceBuffer", "ShadowRoot", "Selection", "SecurityPolicyViolationEvent", "ScriptProcessorNode", "ScreenOrientation", "Screen",
+                "Scheduling", "Scheduler", "SVGViewElement", "SVGUseElement", "SVGUnitTypes", "SVGTransformList", "SVGTransform", "SVGTitleElement",
+                "SVGTextPositioningElement", "SVGTextPathElement", "SVGTextElement", "SVGTextContentElement", "SVGTSpanElement", "SVGSymbolElement",
+                "SVGSwitchElement", "SVGStyleElement", "SVGStringList", "SVGStopElement", "SVGSetElement", "SVGScriptElement", "SVGSVGElement",
+                "SVGRectElement", "SVGRect", "SVGRadialGradientElement", "SVGPreserveAspectRatio", "SVGPolylineElement", "SVGPolygonElement",
+                "SVGPointList", "SVGPoint", "SVGPatternElement", "SVGPathElement", "SVGNumberList", "SVGNumber", "SVGMetadataElement", "SVGMatrix",
+                "SVGMaskElement", "SVGMarkerElement", "SVGMPathElement", "SVGLinearGradientElement", "SVGLineElement", "SVGLengthList", "SVGLength",
+                "SVGImageElement", "SVGGraphicsElement", "SVGGradientElement", "SVGGeometryElement", "SVGGElement", "SVGForeignObjectElement",
+                "SVGFilterElement", "SVGFETurbulenceElement", "SVGFETileElement", "SVGFESpotLightElement", "SVGFESpecularLightingElement",
+                "SVGFEPointLightElement", "SVGFEOffsetElement", "SVGFEMorphologyElement", "SVGFEMergeNodeElement", "SVGFEMergeElement",
+                "SVGFEImageElement", "SVGFEGaussianBlurElement", "SVGFEFuncRElement", "SVGFEFuncGElement", "SVGFEFuncBElement", "SVGFEFuncAElement",
+                "SVGFEFloodElement", "SVGFEDropShadowElement", "SVGFEDistantLightElement", "SVGFEDisplacementMapElement", "SVGFEDiffuseLightingElement",
+                "SVGFEConvolveMatrixElement", "SVGFECompositeElement", "SVGFEComponentTransferElement", "SVGFEColorMatrixElement", "SVGFEBlendElement",
+                "SVGEllipseElement", "SVGElement", "SVGDescElement", "SVGDefsElement", "SVGComponentTransferFunctionElement", "SVGClipPathElement",
+                "SVGCircleElement", "SVGAnimationElement", "SVGAnimatedTransformList", "SVGAnimatedString", "SVGAnimatedRect",
+                "SVGAnimatedPreserveAspectRatio", "SVGAnimatedNumberList", "SVGAnimatedNumber", "SVGAnimatedLengthList", "SVGAnimatedLength",
+                "SVGAnimatedInteger", "SVGAnimatedEnumeration", "SVGAnimatedBoolean", "SVGAnimatedAngle", "SVGAnimateTransformElement",
+                "SVGAnimateMotionElement", "SVGAnimateElement", "SVGAngle", "SVGAElement", "Response", "ResizeObserverSize", "ResizeObserverEntry",
+                "ResizeObserver", "Request", "ReportingObserver", "ReadableStreamDefaultReader", "ReadableStreamDefaultController",
+                "ReadableStreamBYOBRequest", "ReadableStreamBYOBReader", "ReadableStream", "ReadableByteStreamController", "Range", "RadioNodeList",
+                "RTCTrackEvent", "RTCStatsReport", "RTCSessionDescription", "RTCSctpTransport", "RTCRtpTransceiver", "RTCRtpSender", "RTCRtpReceiver",
+                "RTCPeerConnectionIceEvent", "RTCPeerConnectionIceErrorEvent", "RTCPeerConnection", "RTCIceTransport", "RTCIceCandidate",
+                "RTCErrorEvent", "RTCError", "RTCEncodedVideoFrame", "RTCEncodedAudioFrame", "RTCDtlsTransport", "RTCDataChannelEvent",
+                "RTCDataChannel", "RTCDTMFToneChangeEvent", "RTCDTMFSender", "RTCCertificate", "PromiseRejectionEvent", "ProgressEvent",
+                "Profiler", "ProcessingInstruction", "PopStateEvent", "PointerEvent", "PluginArray", "Plugin", "PictureInPictureWindow",
+                "PictureInPictureEvent", "PeriodicWave", "PerformanceTiming", "PerformanceServerTiming", "PerformanceResourceTiming",
+                "PerformancePaintTiming", "PerformanceObserverEntryList", "PerformanceObserver", "PerformanceNavigationTiming",
+                "PerformanceNavigation", "PerformanceMeasure", "PerformanceMark", "PerformanceLongTaskTiming", "PerformanceEventTiming",
+                "PerformanceEntry", "PerformanceElementTiming", "Performance", "Path2D", "PannerNode", "PageTransitionEvent", "OverconstrainedError",
+                "OscillatorNode", "OffscreenCanvasRenderingContext2D", "OffscreenCanvas", "OfflineAudioContext", "OfflineAudioCompletionEvent",
+                "NodeList", "NodeIterator", "NodeFilter", "Node", "NetworkInformation", "Navigator", "NavigationTransition", "NavigationHistoryEntry",
+                "NavigationDestination", "NavigationCurrentEntryChangeEvent", "Navigation", "NavigateEvent", "NamedNodeMap", "MutationRecord",
+                "MutationObserver", "MouseEvent", "MimeTypeArray", "MimeType", "MessagePort", "MessageEvent", "MessageChannel",
+                "MediaStreamTrackVideoStats", "MediaStreamTrackProcessor", "MediaStreamTrackGenerator", "MediaStreamTrackEvent",
+                "MediaStreamTrack", "MediaStreamEvent", "MediaStreamAudioSourceNode", "MediaStreamAudioDestinationNode", "MediaStream",
+                "MediaSourceHandle", "MediaSource", "MediaRecorder", "MediaQueryListEvent", "MediaQueryList", "MediaList", "MediaError",
+                "MediaEncryptedEvent", "MediaElementAudioSourceNode", "MediaCapabilities", "MathMLElement", "Location", "LayoutShiftAttribution",
+                "LayoutShift", "LargestContentfulPaint", "KeyframeEffect", "KeyboardEvent", "IntersectionObserverEntry", "IntersectionObserver",
+                "InputEvent", "InputDeviceInfo", "InputDeviceCapabilities", "ImageTrackList", "ImageTrack", "ImageData", "ImageCapture",
+                "ImageBitmapRenderingContext", "ImageBitmap", "IdleDeadline", "IIRFilterNode", "IDBVersionChangeEvent", "IDBTransaction",
+                "IDBRequest", "IDBOpenDBRequest", "IDBObjectStore", "IDBKeyRange", "IDBIndex", "IDBFactory", "IDBDatabase", "IDBCursorWithValue",
+                "IDBCursor", "History", "Headers", "HashChangeEvent", "HTMLVideoElement", "HTMLUnknownElement", "HTMLUListElement",
+                "HTMLTrackElement", "HTMLTitleElement", "HTMLTimeElement", "HTMLTextAreaElement", "HTMLTemplateElement",
+                "HTMLTableSectionElement", "HTMLTableRowElement", "HTMLTableElement", "HTMLTableColElement", "HTMLTableCellElement",
+                "HTMLTableCaptionElement", "HTMLStyleElement", "HTMLSpanElement", "HTMLSourceElement", "HTMLSlotElement", "HTMLSelectElement",
+                "HTMLScriptElement", "HTMLQuoteElement", "HTMLProgressElement", "HTMLPreElement", "HTMLPictureElement", "HTMLParamElement",
+                "HTMLParagraphElement", "HTMLOutputElement", "HTMLOptionsCollection", "HTMLOptionElement", "HTMLOptGroupElement",
+                "HTMLObjectElement", "HTMLOListElement", "HTMLModElement", "HTMLMeterElement", "HTMLMetaElement", "HTMLMenuElement",
+                "HTMLMediaElement", "HTMLMarqueeElement", "HTMLMapElement", "HTMLLinkElement", "HTMLLegendElement", "HTMLLabelElement",
+                "HTMLLIElement", "HTMLInputElement", "HTMLImageElement", "HTMLIFrameElement", "HTMLHtmlElement", "HTMLHeadingElement",
+                "HTMLHeadElement", "HTMLHRElement", "HTMLFrameSetElement", "HTMLFrameElement", "HTMLFormElement", "HTMLFormControlsCollection",
+                "HTMLFontElement", "HTMLFieldSetElement", "HTMLEmbedElement", "HTMLElement", "HTMLDocument", "HTMLDivElement",
+                "HTMLDirectoryElement", "HTMLDialogElement", "HTMLDetailsElement", "HTMLDataListElement", "HTMLDataElement", "HTMLDListElement",
+                "HTMLCollection", "HTMLCanvasElement", "HTMLButtonElement", "HTMLBodyElement", "HTMLBaseElement", "HTMLBRElement",
+                "HTMLAudioElement", "HTMLAreaElement", "HTMLAnchorElement", "HTMLAllCollection", "GeolocationPositionError",
+                "GeolocationPosition", "GeolocationCoordinates", "Geolocation", "GamepadHapticActuator", "GamepadEvent", "GamepadButton",
+                "Gamepad", "GainNode", "FormDataEvent", "FormData", "FontFaceSetLoadEvent", "FontFace", "FocusEvent", "FileReader", "FileList",
+                "File", "FeaturePolicy", "External", "EventTarget", "EventSource", "EventCounts", "Event", "ErrorEvent", "EncodedVideoChunk",
+                "EncodedAudioChunk", "ElementInternals", "Element", "DynamicsCompressorNode", "DragEvent", "DocumentType",
+                "DocumentFragment", "Document", "DelayNode", "DecompressionStream", "DataTransferItemList", "DataTransferItem",
+                "DataTransfer", "DOMTokenList", "DOMStringMap", "DOMStringList", "DOMRectReadOnly", "DOMRectList", "DOMRect", "DOMQuad",
+                "DOMPointReadOnly", "DOMPoint", "DOMParser", "DOMMatrixReadOnly", "DOMMatrix", "DOMImplementation", "DOMException",
+                "DOMError", "CustomStateSet", "CustomEvent", "CustomElementRegistry", "Crypto", "CountQueuingStrategy", "ConvolverNode",
+                "ConstantSourceNode", "CompressionStream", "CompositionEvent", "Comment", "CloseEvent", "ClipboardEvent", "CharacterData",
+                "ChannelSplitterNode", "ChannelMergerNode", "CanvasRenderingContext2D", "CanvasPattern", "CanvasGradient",
+                "CanvasCaptureMediaStreamTrack", "CSSVariableReferenceValue", "CSSUnparsedValue", "CSSUnitValue", "CSSTranslate",
+                "CSSTransformValue", "CSSTransformComponent", "CSSSupportsRule", "CSSStyleValue", "CSSStyleSheet", "CSSStyleRule",
+                "CSSStyleDeclaration", "CSSSkewY", "CSSSkewX", "CSSSkew", "CSSScale", "CSSRuleList", "CSSRule", "CSSRotate",
+                "CSSPropertyRule", "CSSPositionValue", "CSSPerspective", "CSSPageRule", "CSSNumericValue", "CSSNumericArray",
+                "CSSNamespaceRule", "CSSMediaRule", "CSSMatrixComponent", "CSSMathValue", "CSSMathSum", "CSSMathProduct",
+                "CSSMathNegate", "CSSMathMin", "CSSMathMax", "CSSMathInvert", "CSSMathClamp", "CSSLayerStatementRule",
+                "CSSLayerBlockRule", "CSSKeywordValue", "CSSKeyframesRule", "CSSKeyframeRule", "CSSImportRule", "CSSImageValue",
+                "CSSGroupingRule", "CSSFontPaletteValuesRule", "CSSFontFaceRule", "CSSCounterStyleRule", "CSSContainerRule",
+                "CSSConditionRule", "CSS", "CDATASection", "ByteLengthQueuingStrategy", "BroadcastChannel", "BlobEvent", "Blob",
+                "BiquadFilterNode", "BeforeUnloadEvent", "BeforeInstallPromptEvent", "BaseAudioContext", "BarProp", "AudioWorkletNode", "AudioSinkInfo",
+                "AudioScheduledSourceNode", "AudioProcessingEvent", "AudioParamMap", "AudioParam", "AudioNode", "AudioListener", "AudioDestinationNode", "AudioData",
+                "AudioContext", "AudioBufferSourceNode", "AudioBuffer", "Attr", "AnimationEvent", "AnimationEffect", "Animation", "AnalyserNode", "AbstractRange",
+                "AbortSignal", "AbortController", "window", "self", "document", "name", "location", "customElements", "history", "navigation", "locationbar", "menubar",
+                "personalbar", "scrollbars", "statusbar", "toolbar", "status", "closed", "frames", "length", "top", "opener", "parent", "frameElement", "navigator",
+                "origin", "external", "screen", "innerWidth", "innerHeight", "scrollX", "pageXOffset", "scrollY", "pageYOffset", "visualViewport", "screenX",
+                "screenY", "outerWidth", "outerHeight", "devicePixelRatio", "event", "clientInformation", "offscreenBuffering", "screenLeft", "screenTop",
+                "styleMedia", "onsearch", "isSecureContext", "trustedTypes", "performance", "onappinstalled", "onbeforeinstallprompt", "crypto", "indexedDB",
+                "sessionStorage", "localStorage", "onbeforexrselect", "onabort", "onbeforeinput", "onbeforetoggle", "onblur", "oncancel", "oncanplay",
+                "oncanplaythrough", "onchange", "onclick", "onclose", "oncontextlost", "oncontextmenu", "oncontextrestored", "oncuechange", "ondblclick", "ondrag",
+                "ondragend", "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop", "ondurationchange", "onemptied", "onended", "onerror", "onfocus",
+                "onformdata", "oninput", "oninvalid", "onkeydown", "onkeypress", "onkeyup", "onload", "onloadeddata", "onloadedmetadata", "onloadstart",
+                "onmousedown", "onmouseenter", "onmouseleave", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel", "onpause", "onplay",
+                "onplaying", "onprogress", "onratechange", "onreset", "onresize", "onscroll", "onsecuritypolicyviolation", "onseeked", "onseeking", "onselect",
+                "onslotchange", "onstalled", "onsubmit", "onsuspend", "ontimeupdate", "ontoggle", "onvolumechange", "onwaiting", "onwebkitanimationend",
+                "onwebkitanimationiteration", "onwebkitanimationstart", "onwebkittransitionend", "onwheel", "onauxclick", "ongotpointercapture",
+                "onlostpointercapture", "onpointerdown", "onpointermove", "onpointerrawupdate", "onpointerup", "onpointercancel", "onpointerover", "onpointerout",
+                "onpointerenter", "onpointerleave", "onselectstart", "onselectionchange", "onanimationend", "onanimationiteration", "onanimationstart", "ontransitionrun",
+                "ontransitionstart", "ontransitionend", "ontransitioncancel", "onafterprint", "onbeforeprint", "onbeforeunload", "onhashchange", "onlanguagechange",
+                "onmessage", "onmessageerror", "onoffline", "ononline", "onpagehide", "onpageshow", "onpopstate", "onrejectionhandled", "onstorage",
+                "onunhandledrejection", "onunload", "crossOriginIsolated", "scheduler", "alert", "atob", "blur", "btoa", "cancelAnimationFrame", "cancelIdleCallback",
+                "captureEvents", "clearInterval", "clearTimeout", "close", "confirm", "createImageBitmap", "fetch", "find", "focus", "getComputedStyle", "getSelection",
+                "matchMedia", "moveBy", "moveTo", "open", "postMessage", "print", "prompt", "queueMicrotask", "releaseEvents", "reportError", "requestAnimationFrame",
+                "requestIdleCallback", "resizeBy", "resizeTo", "scroll", "scrollBy", "scrollTo", "setInterval", "setTimeout", "stop", "structuredClone",
+                "webkitCancelAnimationFrame", "webkitRequestAnimationFrame", "chrome", "WebAssembly", "fence", "caches", "cookieStore", "ondevicemotion",
+                "ondeviceorientation", "ondeviceorientationabsolute", "launchQueue", "sharedStorage", "documentPictureInPicture", "onbeforematch",
+                "AbsoluteOrientationSensor", "Accelerometer", "AudioDecoder", "AudioEncoder", "AudioWorklet", "BatteryManager", "Cache", "CacheStorage",
+                "Clipboard", "ClipboardItem", "CookieChangeEvent", "CookieStore", "CookieStoreManager", "Credential", "CredentialsContainer", "CryptoKey",
+                "DeviceMotionEvent", "DeviceMotionEventAcceleration", "DeviceMotionEventRotationRate", "DeviceOrientationEvent", "FederatedCredential", "GPU",
+                "GPUAdapter", "GPUAdapterInfo", "GPUBindGroup", "GPUBindGroupLayout", "GPUBuffer", "GPUBufferUsage", "GPUCanvasContext", "GPUColorWrite",
+                "GPUCommandBuffer", "GPUCommandEncoder", "GPUCompilationInfo", "GPUCompilationMessage", "GPUComputePassEncoder", "GPUComputePipeline",
+                "GPUDevice", "GPUDeviceLostInfo", "GPUError", "GPUExternalTexture", "GPUInternalError", "GPUMapMode", "GPUOutOfMemoryError", "GPUPipelineError",
+                "GPUPipelineLayout", "GPUQuerySet", "GPUQueue", "GPURenderBundle", "GPURenderBundleEncoder", "GPURenderPassEncoder", "GPURenderPipeline",
+                "GPUSampler", "GPUShaderModule", "GPUShaderStage", "GPUSupportedFeatures", "GPUSupportedLimits", "GPUTexture", "GPUTextureUsage",
+                "GPUTextureView", "GPUUncapturedErrorEvent", "GPUValidationError", "GravitySensor", "Gyroscope", "ImageDecoder", "Keyboard", "KeyboardLayoutMap",
+                "LinearAccelerationSensor", "Lock", "LockManager", "MIDIAccess", "MIDIConnectionEvent", "MIDIInput", "MIDIInputMap", "MIDIMessageEvent",
+                "MIDIOutput", "MIDIOutputMap", "MIDIPort", "MediaDeviceInfo", "MediaDevices", "MediaKeyMessageEvent", "MediaKeySession", "MediaKeyStatusMap",
+                "MediaKeySystemAccess", "MediaKeys", "NavigationPreloadManager", "NavigatorManagedData", "OrientationSensor", "PasswordCredential",
+                "RelativeOrientationSensor", "ScreenDetailed", "ScreenDetails", "Sensor", "SensorErrorEvent", "ServiceWorker", "ServiceWorkerContainer", "ServiceWorkerRegistration",
+                "StorageManager", "SubtleCrypto", "VideoDecoder", "VideoEncoder", "VirtualKeyboard", "WGSLLanguageFeatures", "WebTransport", "WebTransportBidirectionalStream",
+                "WebTransportDatagramDuplexStream", "WebTransportError", "Worklet", "XRDOMOverlayState", "XRLayer", "XRWebGLBinding", "AuthenticatorAssertionResponse",
+                "AuthenticatorAttestationResponse", "AuthenticatorResponse", "PublicKeyCredential", "Bluetooth", "BluetoothCharacteristicProperties", "BluetoothDevice",
+                "BluetoothRemoteGATTCharacteristic", "BluetoothRemoteGATTDescriptor", "BluetoothRemoteGATTServer", "BluetoothRemoteGATTService", "CaptureController",
+                "CookieDeprecationLabel", "DocumentPictureInPicture", "EyeDropper", "Fence", "FencedFrameConfig", "HTMLFencedFrameElement", "FileSystemDirectoryHandle",
+                "FileSystemFileHandle", "FileSystemHandle", "FileSystemWritableFileStream", "FontData", "FragmentDirective", "HID", "HIDConnectionEvent", "HIDDevice",
+                "HIDInputReportEvent", "IdentityCredential", "IdentityProvider", "IdentityCredentialError", "IdleDetector", "LaunchParams", "LaunchQueue", "NavigatorLogin",
+                "OTPCredential", "PaymentAddress", "PaymentRequest", "PaymentResponse", "PaymentMethodChangeEvent", "Presentation", "PresentationAvailability",
+                "PresentationConnection", "PresentationConnectionAvailableEvent", "PresentationConnectionCloseEvent", "PresentationConnectionList", "PresentationReceiver",
+                "PresentationRequest", "Serial", "SerialPort", "SharedStorage", "SharedStorageWorklet", "USB", "USBAlternateInterface", "USBConfiguration", "USBConnectionEvent",
+                "USBDevice", "USBEndpoint", "USBInTransferResult", "USBInterface", "USBIsochronousInTransferPacket", "USBIsochronousInTransferResult",
+                "USBIsochronousOutTransferPacket", "USBIsochronousOutTransferResult", "USBOutTransferResult", "WakeLock", "WakeLockSentinel", "WindowControlsOverlay",
+                "WindowControlsOverlayGeometryChangeEvent", "XRAnchor", "XRAnchorSet", "XRBoundedReferenceSpace", "XRCPUDepthInformation", "XRCamera", "XRDepthInformation",
+                "XRFrame", "XRHitTestResult", "XRHitTestSource", "XRInputSource", "XRInputSourceArray", "XRInputSourceEvent", "XRInputSourcesChangeEvent", "XRLightEstimate",
+                "XRLightProbe", "XRPose", "XRRay", "XRReferenceSpace", "XRReferenceSpaceEvent", "XRRenderState", "XRRigidTransform", "XRSession", "XRSessionEvent", "XRSpace",
+                "XRSystem", "XRTransientInputHitTestResult", "XRTransientInputHitTestSource", "XRView", "XRViewerPose", "XRViewport", "XRWebGLDepthInformation", "XRWebGLLayer",
+                "getScreenDetails", "queryLocalFonts", "showDirectoryPicker", "showOpenFilePicker", "showSaveFilePicker", "originAgentCluster", "credentialless", "speechSynthesis",
+                "oncontentvisibilityautostatechange", "onscrollend", "AnimationPlaybackEvent", "AnimationTimeline", "CSSAnimation", "CSSTransition", "DocumentTimeline",
+                "BackgroundFetchManager", "BackgroundFetchRecord", "BackgroundFetchRegistration", "BluetoothUUID", "BrowserCaptureMediaStreamTrack", "CropTarget", "CSSScopeRule",
+                "CSSStartingStyleRule", "CloseWatcher", "ContentVisibilityAutoStateChangeEvent", "DelegatedInkTrailPresenter", "Ink", "DocumentPictureInPictureEvent", "Highlight",
+                "HighlightRegistry", "MediaMetadata", "MediaSession", "MutationEvent", "NavigatorUAData", "Notification", "PaymentManager", "PaymentRequestUpdateEvent",
+                "PeriodicSyncManager", "PermissionStatus", "Permissions", "PushManager", "PushSubscription", "PushSubscriptionOptions", "RemotePlayback", "ScrollTimeline",
+                "ViewTimeline", "SharedWorker", "SpeechSynthesisErrorEvent", "SpeechSynthesisEvent", "SpeechSynthesisUtterance", "VideoPlaybackQuality", "VisibilityStateEntry",
+                "webkitSpeechGrammar", "webkitSpeechGrammarList", "webkitSpeechRecognition", "webkitSpeechRecognitionError", "webkitSpeechRecognitionEvent",
+                "webkitRequestFileSystem", "webkitResolveLocalFileSystemURL", "hookPro", "getCircularReplacer", "regeneratorRuntime", "__VCONSOLE_INSTANCE", "vConsole",
+                "_vcOrigConsole", "VConsole", "__core-js_shared__", "NDEFMessage", "NDEFReader", "NDEFReadingEvent", "NDEFRecord", "ContactsManager", "ContentIndex", "CanvasFilter",
+                "onorientationchange", "orientation", "openDatabase", "ontouchcancel", "ontouchend", "ontouchmove", "ontouchstart", "Sanitizer", "BarcodeDetector", "ContactAddress",
+                "shuxing", "copyToClipboard", "inOne", "callOne", "bianli", "printObjectProperties"
+            ];
+
+            var excludedProps = new Set(excludedPropsArray);
+
+            var content = "";  // 用于收集所有的内容
+
+            Object.getOwnPropertyNames(window).forEach(function (prop) {
+                if (!excludedProps.has(prop)) {
+                    try {
+                        var propValue = window[prop];
+                        if (typeof propValue === 'function') {
+                            console.log("functionProyxx:" + prop + ": " + propValue.toString());
+                            var logMessage = "functionProyxx:" + prop + ": " + propValue.toString() + "\n\t<br/><br/>";
+                            document.write(logMessage);
+                            content += logMessage;
+                        } else if (typeof propValue === 'object' && propValue !== null) {
+                            // 尝试使用自定义的替换器来安全地字符串化对象
+                            var safeStringify = JSON.stringify(propValue, getCircularReplacer(), 2);
+                            console.log("objectProyxx:" + prop + ": " + safeStringify);
+                            var logMessage = "objectProyxx:" + prop + ": " + safeStringify + "\n\t<br/><br/>";
+                            document.write(logMessage);
+                            printObjectProperties(propValue, 1);
+                            document.write("<br/>");
+                            content += logMessage;
+                        } else {
+                            console.log("otherProyxx:" + prop + ": ", propValue);
+                            var logMessage = "otherProyxx:" + prop + ": " + propValue + "\n\t<br/><br/>";
+                            document.write(logMessage);
+                            content += logMessage;
+                        }
+                    } catch (e) {
+                        console.error('Error accessing property:', prop, e);
+                    }
+                }
+            });
+
+            // 将内容复制到剪切板
+            copyToClipboard(content);
+        }
+
+        function printObjectProperties(obj, indentLevel) {
+            var indent = '&nbsp;'.repeat(indentLevel * 4); // 每层缩进4个空格
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    var value = obj[key];
+                    if (typeof value === 'object' && value !== null) {
+                        var logMessage = indent + key + ":<br/>";
+                        document.write(logMessage);
+                        printObjectProperties(value, indentLevel + 1);
+                    } else {
+                        var logMessage = indent + key + ": " + value + "<br/>";
+                        document.write(logMessage);
+                    }
+                }
+            }
+        }
+
+
+        function copyToClipboard(content) {
+            var textarea = document.createElement("textarea");
+            textarea.value = content;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+
+        // 自定义替换器忽略循环引用
+        function getCircularReplacer() {
+            const seen = new WeakSet();
+            return (key, value) => {
+                if (typeof value === "object" && value !== null) {
+                    if (seen.has(value)) {
+                        return;
+                    }
+                    seen.add(value);
+                }
+                return value;
+            };
+        }
+    </script>
+
+    <!-- <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/fe/ies/bridge/bytedance/jsbridge-2.2.10.umd.js"></script> -->​
+    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+        var vConsole = new window.VConsole();
+    </script>
+
     <script type="text/javascript">
         function bianli() {
             for (var property in window) {
@@ -11,30 +263,75 @@
             }
 
         }
-        function invokeOne() {
-           for (var property in window.hwmp) {
+        function inOne() {
+            for (var property in window.pia_bridge) {
                 document.write(property + "\n\t<br/>");
+                console.log("data:" + property);
             }
-            window.hwmp.showAccountInfo("207551233");
+            /* window.JSBridge.call('app.getAppInfo', { foo: 'bar' }, (res) => {
+                alert(JSON.stringify(res));
+            }); */
+            //vivoAdJsInterface allTrustCommonJsInterface vivoGeolocationDescription vivoEveryoneSearchClient worldCupClient
         }
-        function invokeOne2() {
-            //alert(window.assistantJs.getImei());
-            //for (var property in window.HwWebViewJSI) {
-                //document.write(property + "\n\t<br/>");
-            //}
-            window.hwmp.showAccountInfo("1000207551233");
-            
+
+        function callOne() {
+            //var data = window.novelJs.getAdParams("https://www.vivo.com/", "https://www.vivo.com/", "");
+            //var data = window.novelJs.getBrowserLocation("https://www.vivo.com/");
+            //var data = window.worldCupClient.getPhoneInfo("http://www.vivo.com.cn");
+            //console.log("data:" + JSON.stringify(data));
+            //alert(data);
+            /* var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "https://www.cnwatcher.com/js/allobj.html?info=" + data, true);
+            xmlhttp.send(); */
+            alert(JSON.stringify(window.JDAppUnite.getPageConfig()));
+            //alert(JSON.stringify(window.xbrowser.getPageConfig()));
+        }
+
+        function shuxing() {
+            alert(JSON.stringify(window.__getGlobalConfig__()));
+            console.log("data:" + JSON.stringify(window.__getGlobalConfig__()));
+            //alert(window.__globalprops.getGlobalProps());
+            //alert(JSON.stringify(window.__globalProps));
         }
     </script>
 </head>
 
 <body>
     <h1>AllOBJ</h1>
-    <button style="width:200px;height:200px;" onclick="bianli()">AllObj</button>
+
+    <button style="width:200px;height:200px;" onclick="inOne()">inOne</button>
     <br />
-    <button style="width:200px;height:200px;" onclick="invokeOne()">invokeOne</button>
+    <button style="width:200px;height:200px;" onclick="callOne()">callOne</button>
     <br />
-    <button style="width:200px;height:200px;" onclick="invokeOne2()">invokeOne2</button>
+    <button style="width:200px;height:200px;" onclick="shuxing()">shuxing</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="hookPro()">newAdded</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
+    <br />
+    <a
+        href="https://cnwatcher.com/js/scheme.html?add_common=1&append_common_params=1&should_append_common_param=1&should_add_common_header=1">status
+        page</a>
+    <br /><br /><br /><br />
+    <a
+        href="intent:http://ailaohuyou.com/js/#Intent;component=com.dragon.read/com.bytedance.ug.sdk.luckycat.impl.browser.LuckyCatBrowserActivity;end;">intentScheme</a>
+    <br /><br /><br /><br />
+    <a
+        href="alipays://platformapi/startapp?appClearTop=false\&appId=20000067\&startMultApp=YES\&url=https%3A%2F%2Fcnwatcher.com%2Fjs%2Fziyuan%2Flocation.html">alipay</a>
+    <br /><br /><br /><br />
+    <a href="sslocal://cjpay/webview?url=https://www.cnwatcher.com/js/douyin/rq/caijing.html?">caijing</a>
+    <br /><br /><br /><br />
+    <a href="sslocal://polaris/webview?url=https://www.cnwatcher.com/js/douyin/rq/caijing.html?">jili</a>
+    <br /><br /><br /><br />
+    <a href="https://www.cnwatcher.com/js/zy/">sslocal</a>
+    <br /><br /><br /><br />
+    <a href="sslocal://webcast_webview?url=https://www.cnwatcher.com/js/douyin/jsb1/jsb1-race.html?sendUrl=%5C%22%7D%3Bconsole.log(112233)%3B%2F%2F">webcast_webview</a>
+    <br /><br /><br /><br />
+    <a href="sslocal://polaris/webview_popup?url=https://www.cnwatcher.com/js/douyin/jsb1/test.html">polaris/webview_popup</a>
+    <br /><br /><br /><br />
+
+    <a href="sslocal://webcast_webview?url=https://www.cnwatcher.com/js/douyin/jsb1/jsb1-race.html">webcast_webview</a>
+    <br /><br /><br /><br />
 </body>
 
 </html>
