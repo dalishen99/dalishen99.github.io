@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>AllOBJ</title>
+        
+    <!-- <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/fe/ies/bridge/bytedance/jsbridge-2.2.10.umd.js"></script> -->​
+    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+        var vConsole = new window.VConsole();
+    </script>
+
+    <script type="text/javascript">
+        function inOne() {
+            for (var property in window.pia_bridge) {
+                document.write(property + "\n\t<br/>");
+                console.log("data:" + property);
+            }
+            /* window.JSBridge.call('app.getAppInfo', { foo: 'bar' }, (res) => {
+                alert(JSON.stringify(res));
+            }); */
+            //vivoAdJsInterface allTrustCommonJsInterface vivoGeolocationDescription vivoEveryoneSearchClient worldCupClient
+        }
+
+        window.callBackMyMessage = function (e) {
+            var data = JSON.stringify(e);
+            alert(data);
+        }
+        function callOne() {
+           //JDAppUnite.getPhoneBasicInfo("window.callBackMyMessage");
+           //JDAppUnite.requestLogin("window.callBackMyMessage");
+            //var data = window.novelJs.getAdParams("https://www.vivo.com/", "https://www.vivo.com/", "");
+            //var data = window.novelJs.getBrowserLocation("https://www.vivo.com/");
+            //var data = window.worldCupClient.getPhoneInfo("http://www.vivo.com.cn");
+            //console.log("data:" + JSON.stringify(data));
+            //alert(data);
+            /* var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "https://www.cnwatcher.com/js/allobj.html?info=" + data, true);
+            xmlhttp.send(); */
+            //alert(JSON.stringify(window.JDAppUnite.getPageConfig()));
+            //alert(JSON.stringify(window.xbrowser.getPageConfig()));
+            alert(window.Android.getJDPinToken());
+        }
+
+        function shuxing() {
+            alert(JSON.stringify(window.__getGlobalConfig__()));
+            console.log("data:" + JSON.stringify(window.__getGlobalConfig__()));
+            //alert(window.__globalprops.getGlobalProps());
+            //alert(JSON.stringify(window.__globalProps));
+        }
+    </script>
+</head>
+
+<body>
+    <h1>AllOBJ</h1>
+
+    <button style="width:200px;height:200px;" onclick="callOne()">callOne</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
+    <br />
+   
+</body>
+
+</html>
