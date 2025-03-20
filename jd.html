@@ -60,6 +60,11 @@
             //alert(window.__globalprops.getGlobalProps());
             //alert(JSON.stringify(window.__globalProps));
         }
+        function call2() {
+            console.log("data:"+document.cookie);
+            alert(1);
+            alert(document.cookie);
+        }
     </script>
 </head>
 
@@ -67,6 +72,8 @@
     <h1>AllOBJ</h1>
 
     <button style="width:200px;height:200px;" onclick="callOne()">callOne</button>
+    <br />
+    <button style="width:200px;height:200px;" onclick="call2()">call2</button>
     <br />
     <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
     <br />
