@@ -49,8 +49,9 @@
             xmlhttp.send(); */
             //alert(JSON.stringify(window.JDAppUnite.getPageConfig()));
             //alert(JSON.stringify(window.xbrowser.getPageConfig()));
-             alert(window.Android.getAppVersionInfo());
+             //alert(window.Android.getAppVersionInfo());
             window.Android.getJDPinToken("https://www.jd.com");
+             window.Android.getFile("/data/data/com.jd.oa/shared_prefs/JdAndroidUUID.xml");
         }
 
         function shuxing() {
