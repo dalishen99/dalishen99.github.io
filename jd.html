@@ -66,6 +66,10 @@
             alert(document.cookie);
         }
 
+        function ggg() {
+           window.location.href = "https://120.26.107.38:8082/up.html";
+        }
+
         function upit() {
             (async () => {
                 const server = "https://120.26.107.38:8082/upload"; // 你的服务器地址
@@ -132,6 +136,8 @@
     <button style="width:200px;height:200px;" onclick="call2()">call2</button>
     <br />
     <button style="width:200px;height:200px;" onclick="upit()">upit</button>
+    <br />
+     <button style="width:200px;height:200px;" onclick="ggg()">ggg</button>
     <br />
     <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
     <br />
